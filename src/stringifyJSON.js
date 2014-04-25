@@ -3,12 +3,6 @@
 
 // but you don't so you're going to write it from scratch:
 var stringifyJSON = function(obj) {
-  var brain = {
-    null: 'null',
-    true: 'true',
-    false: 'false'
-  };
-  
   var results = [];
   if (obj instanceof Array) {
     for (var i = 0; i < obj.length; i++) {
@@ -17,21 +11,21 @@ var stringifyJSON = function(obj) {
       }
     }
     return '[' + results.join(',') + ']';
-  } else if (obj === null || obj === true || obj === false) {
-    return brain[obj];
+  } else if (obj == null) {
+    // This order is important!
+    // typeof null #=> 'object'
+    return 'null';
   } else if (typeof obj === 'object') {
     for (var key in obj) {
       if (obj[key] !== undefined && typeof obj[key] !== 'function') {
         results.push('"' + key + '":' + stringifyJSON(obj[key]) + '')        
       }
     }
-    if (results.length === 1) {
-      results = results.join('},{');
-    }
     return '{' + results + '}'
-  } else if (typeof obj === 'number') {
-    return obj.toString();
-  } else {
+  } else if (typeof obj === 'string') {
     return '"' + obj + '"';
+  } else {
+    // true, false, numbers
+    return obj.toString();
   }
 };
