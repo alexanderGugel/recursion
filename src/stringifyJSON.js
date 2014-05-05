@@ -11,7 +11,7 @@ var stringifyJSON = function(obj) {
       }
     }
     return '[' + results.join(',') + ']';
-  } else if (obj == null) {
+  } else if (obj === null) {
     // This order is important!
     // typeof null #=> 'object'
     return 'null';
