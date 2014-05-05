@@ -3,6 +3,8 @@
 
 // but you don't so you're going to write it from scratch:
 var stringifyJSON = function(obj) {
+  'use strict';
+  
   var results = [];
   if (obj instanceof Array) {
     for (var i = 0; i < obj.length; i++) {
@@ -18,10 +20,10 @@ var stringifyJSON = function(obj) {
   } else if (typeof obj === 'object') {
     for (var key in obj) {
       if (obj[key] !== undefined && typeof obj[key] !== 'function') {
-        results.push('"' + key + '":' + stringifyJSON(obj[key]) + '')        
+        results.push('"' + key + '":' + stringifyJSON(obj[key]) + '');
       }
     }
-    return '{' + results + '}'
+    return '{' + results + '}';
   } else if (typeof obj === 'string') {
     return '"' + obj + '"';
   } else {
